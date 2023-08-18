@@ -1,14 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
-
+const productosRoutes = require("./routes/products");
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get("/", (err, res) => {
-  res.send("TABLITAS");
-});
+app.use(productosRoutes);
+app.use(express.json());
 
+// mongodb atlas conection
 mongoose
   .connect(process.env.MONGO_URI)
 
@@ -19,6 +19,7 @@ mongoose
     console.log(error);
   });
 
+// init express server
 app.listen(port, () => {
   console.log(`Server listening on port: ${port}`);
 });
