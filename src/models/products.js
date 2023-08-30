@@ -8,4 +8,4 @@ const productSchema = mongoose.Schema({
   url: { type: String, require: true },
 });
 
-module.export = mongoose.model("Product", productSchema);
+module.exports = mongoose.model("Product", productSchema);
