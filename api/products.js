@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const productSchema = require("../models/products");
+const productSchema = require("models/products");
 
-router.get("/api/products", (req, res) => {
+router.get("/products", (req, res) => {
   productSchema
     .find()
     .then((data) => res.json(data))
