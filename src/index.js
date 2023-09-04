@@ -5,8 +5,8 @@ const productosRoutes = require("./routes/products");
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(productosRoutes);
 app.use(express.json());
+app.use(productosRoutes);
 
 // mongodb atlas conection
 mongoose

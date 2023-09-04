@@ -3,9 +3,17 @@ const router = express.Router();
 const productSchema = require("../models/products");
 
 router.get("/products", (req, res) => {
-  const { id } = req.params;
   productSchema
     .find()
+    .then((data) => res.json(data))
+    .catch((error) => res.json);
+});
+
+router.get("/products/:id", (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  productSchema
+    .findById(id)
     .then((data) => res.json(data))
     .catch((error) => res.json);
 });
@@ -23,21 +31,37 @@ router.post("/products", (req, res) => {
     });
 });
 
-// router.post("/products", (req, res) => {
-//   console.log(req);
-//   res.send(req);
-//   const product = productSchema(req.body);
-//   product
-//     .save()
-//     .then((data) => res.json(data))
-//     .catch((error) => res.json({ message: error }));
-// });
-
 router.put("/products/:id", (req, res) => {
-  res.send("Product actualize");
+  const { id } = req.params;
+  const { titulo, precio, descripcion, cantidad, url } = req.body;
+  console.log(req.body);
+  console.log(id);
+  console.log(titulo, precio, descripcion, cantidad, url);
+  productSchema
+    .updateOne(
+      { _id: id },
+      {
+        $set: {
+          titulo,
+          precio,
+          descripcion,
+          cantidad,
+          url,
+        },
+      }
+    )
+    .then((data) => res.json(data))
+    .catch((error) => res.json);
 });
 
-router.delete("/items/:id", (req, res) => {
-  res.send("Product delete");
+router.delete("/products/:id", (req, res) => {
+  const { id } = req.params;
+  productSchema
+    .deleteOne({ _id: id })
+    .then((data) => res.json(data))
+    .catch((error) =>
+      res.json({ message: "Error al eliminar el producto", error })
+    );
 });
+
 module.exports = router;
