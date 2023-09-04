@@ -8,7 +8,6 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(productosRoutes);
 
-// mongodb atlas conection
 mongoose
   .connect(process.env.MONGO_URI)
 
@@ -19,7 +18,6 @@ mongoose
     console.log(error);
   });
 
-// init express server
 app.listen(port, () => {
   console.log(`Server listening on port: ${port}`);
 });
