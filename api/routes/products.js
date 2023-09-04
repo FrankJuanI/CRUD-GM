@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const productSchema = require("../models/products");
 
-router.get("/products", (req, res) => {
+router.get("/api/products", (req, res) => {
   productSchema
     .find()
     .then((data) => res.json(data))
